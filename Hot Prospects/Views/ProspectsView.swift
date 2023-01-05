@@ -16,7 +16,16 @@ struct ProspectsView: View {
     var filter: FilterTypes
     var body: some View {
         NavigationView{
-            Text("number of people: \(prospects.people.count)")
+            List {
+                ForEach(filteredPeople) { prospect in
+                    VStack(alignment: .leading){
+                        Text(prospect.name)
+                            .font(.headline)
+                        Text(prospect.emailAddress)
+                            .foregroundColor(.secondary)
+                    }
+                }
+            }
             .navigationTitle(title)
             .toolbar {
                 Button {
@@ -41,6 +50,17 @@ struct ProspectsView: View {
             return "Contacted people"
         case .uncontacted:
             return "Uncontacted people"
+        }
+    }
+    
+    var filteredPeople: [Prospect] {
+        switch filter {
+        case .none:
+           return prospects.people
+        case .contacted:
+            return prospects.people.filter { $0.isContacted }
+        case .uncontacted:
+            return prospects.people.filter { !$0.isContacted }
         }
     }
 }
