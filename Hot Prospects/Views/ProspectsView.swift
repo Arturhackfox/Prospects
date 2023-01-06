@@ -27,6 +27,23 @@ struct ProspectsView: View {
                         Text(prospect.emailAddress)
                             .foregroundColor(.secondary)
                     }
+                    .swipeActions {
+                        if prospect.isContacted {
+                            Button{
+                                prospects.toggle(prospect)
+                            } label: {
+                                Label("Mark uncontacted", systemImage: "person.crop.circle.badge.xmark")
+                            }
+                            .tint(.orange)
+                        } else {
+                            Button{
+                                prospects.toggle(prospect)
+                            } label: {
+                                Label("Mark contacted", systemImage: "person.crop.circle.fill.badge.checkmark")
+                            }
+                            .tint(.green)
+                        }
+                    }
                 }
             }
             .navigationTitle(title)
@@ -38,12 +55,12 @@ struct ProspectsView: View {
                 }
             }
             .sheet(isPresented: $isShowingScanner) {
-                CodeScannerView(codeTypes: [.qr], completion: handleScan)
+                CodeScannerView(codeTypes: [.qr], simulatedData: "Paul Hudson\npaul@hackingwithswift.com", completion: handleScan)
             }
         }
         
     }
-    
+    // MARK: to handle results from scanning qr code
     func handleScan(result: Result<ScanResult, ScanError>) {
         isShowingScanner = false
         

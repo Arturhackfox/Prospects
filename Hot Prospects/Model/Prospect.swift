@@ -11,7 +11,7 @@ class Prospect: Identifiable, Codable {
     var id = UUID()
     var name = "Annonymous"
     var emailAddress = ""
-    var isContacted = false
+    fileprivate(set) var isContacted = false  //MARK: this property can be read from anywhere, but only written from current file
 }
 
 
@@ -20,5 +20,10 @@ class Prospect: Identifiable, Codable {
     
     init() {
         self.people = []
+    }
+    
+    func toggle(_ prospect: Prospect) {
+        objectWillChange.send()
+        prospect.isContacted.toggle()
     }
 }
