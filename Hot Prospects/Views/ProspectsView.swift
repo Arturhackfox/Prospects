@@ -14,6 +14,7 @@ struct ProspectsView: View {
     }
     
     var filter: FilterTypes
+    
     var body: some View {
         NavigationView{
             List {
