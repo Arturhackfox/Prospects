@@ -5,13 +5,15 @@
 //  Created by Arthur Sh on 05.01.2023.
 //
 
+import CodeScanner
 import SwiftUI
 
 struct ProspectsView: View {
-    @EnvironmentObject var prospects: Prospects
     enum FilterTypes {
         case none, contacted, uncontacted
     }
+    @EnvironmentObject var prospects: Prospects
+    @State private var isShowingScanner = false
     
     var filter: FilterTypes
     
@@ -30,15 +32,33 @@ struct ProspectsView: View {
             .navigationTitle(title)
             .toolbar {
                 Button {
-                    let new = Prospect()
-                    new.name = "new"
-                    new.emailAddress = "@mail.ua"
-                    new.isContacted = true
-                    prospects.people.append(new)
+                    isShowingScanner = true
                 } label: {
                     Label("Scan", systemImage: "qrcode.viewfinder")
                 }
             }
+            .sheet(isPresented: $isShowingScanner) {
+                CodeScannerView(codeTypes: [.qr], completion: handleScan)
+            }
+        }
+       
+    }
+    
+    func handleScan(result: Result<ScanResult, ScanError>) {
+        isShowingScanner = false
+        
+        switch result {
+        case .success(let result):
+            let details = result.string.components(separatedBy: "\n")
+            
+            guard details.count == 2 else { return }
+            let person = Prospect()
+            person.name = details[0]
+            person.emailAddress = details[1]
+            prospects.people.append(person)
+            
+        case .failure(let error):
+            print("Failed to scan \(error.localizedDescription)")
         }
     }
     
