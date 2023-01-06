@@ -41,7 +41,7 @@ struct ProspectsView: View {
                 CodeScannerView(codeTypes: [.qr], completion: handleScan)
             }
         }
-       
+        
     }
     
     func handleScan(result: Result<ScanResult, ScanError>) {
@@ -66,7 +66,7 @@ struct ProspectsView: View {
     var title: String {
         switch filter {
         case .none:
-           return "All"
+            return "All"
         case .contacted:
             return "Contacted people"
         case .uncontacted:
@@ -77,7 +77,7 @@ struct ProspectsView: View {
     var filteredPeople: [Prospect] {
         switch filter {
         case .none:
-           return prospects.people
+            return prospects.people
         case .contacted:
             return prospects.people.filter { $0.isContacted }
         case .uncontacted:
@@ -90,6 +90,6 @@ struct ProspectsView_Previews: PreviewProvider {
     static var previews: some View {
         ProspectsView(filter: .none)
             .environmentObject(Prospects())
-
+        
     }
 }
