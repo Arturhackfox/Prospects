@@ -12,27 +12,33 @@ class Prospect: Identifiable, Codable {
     var name = "Annonymous"
     var emailAddress = ""
     fileprivate(set) var isContacted = false  //MARK: this property can be read from anywhere, but only written from current file
+    var created = Date.now
 }
 
 
 @MainActor class Prospects: ObservableObject {
-    @Published private(set) var people: [Prospect]
+    @Published  var people: [Prospect]
     let saveKey = "SavedData"
+    let url = FileManager.directory.appendingPathComponent("ProspectsData")
     
     init() {
-        if let data = UserDefaults.standard.data(forKey: saveKey) {
-            if let decoded = try? JSONDecoder().decode([Prospect].self, from: data) {
-                people = decoded
-                return
-            }
+        do{
+            let data = try Data(contentsOf: url)
+            people = try JSONDecoder().decode([Prospect].self, from: data)
+            print("Data loaded!")
+        } catch {
+            print("empty array")
+            people = []
         }
-        
-        people = []
     }
     
-   private func save() {
-        if let data = try? JSONEncoder().encode(people) {
-            UserDefaults.standard.set(data, forKey: saveKey)
+    private func save() {
+        do {
+            let data = try JSONEncoder().encode(people)
+                try data.write(to: url)
+                print("write success!")
+        } catch {
+            print("failed to write data!\(error.localizedDescription)")
         }
     }
     
@@ -45,5 +51,18 @@ class Prospect: Identifiable, Codable {
         objectWillChange.send()
         prospect.isContacted.toggle()
         save()
+    }
+    
+    enum SortTypes {
+        case byDate, byName
+    }
+    
+    func sort(_ sortType: SortTypes) {
+        switch sortType {
+        case .byDate:
+            people = people.sorted { $0.created > $1.created}
+        case .byName:
+            people = people.sorted{ $0.name < $1.name}
+        }
     }
 }

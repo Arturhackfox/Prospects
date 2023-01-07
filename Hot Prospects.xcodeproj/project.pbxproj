@@ -19,6 +19,7 @@
 		327DA2CD2966DF80002373A4 /* Prospect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327DA2CC2966DF80002373A4 /* Prospect.swift */; };
 		327DA2D029681DC0002373A4 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 327DA2CF29681DC0002373A4 /* CodeScanner */; };
 		327DA2D22968571A002373A4 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327DA2D12968571A002373A4 /* ImageSaver.swift */; };
+		327DA2D4296993F4002373A4 /* URLDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327DA2D3296993F4002373A4 /* URLDirectory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		327DA2C52966DB93002373A4 /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
 		327DA2CC2966DF80002373A4 /* Prospect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prospect.swift; sourceTree = "<group>"; };
 		327DA2D12968571A002373A4 /* ImageSaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
+		327DA2D3296993F4002373A4 /* URLDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLDirectory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 		327DA251296446F7002373A4 = {
 			isa = PBXGroup;
 			children = (
+				327DA2D3296993F4002373A4 /* URLDirectory.swift */,
 				327DA25C296446F7002373A4 /* Hot Prospects */,
 				327DA26D296446F8002373A4 /* Hot ProspectsTests */,
 				327DA277296446F8002373A4 /* Hot ProspectsUITests */,
@@ -306,6 +309,7 @@
 				327DA2CD2966DF80002373A4 /* Prospect.swift in Sources */,
 				327DA2C42966DB8D002373A4 /* ProspectsView.swift in Sources */,
 				327DA260296446F7002373A4 /* ContentView.swift in Sources */,
+				327DA2D4296993F4002373A4 /* URLDirectory.swift in Sources */,
 				327DA25E296446F7002373A4 /* Hot_ProspectsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

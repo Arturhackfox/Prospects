@@ -15,6 +15,7 @@ struct ProspectsView: View {
     }
     @EnvironmentObject var prospects: Prospects
     @State private var isShowingScanner = false
+    @State private var isConfiramtionDiaglog = false
     
     var filter: FilterTypes
     
@@ -22,11 +23,16 @@ struct ProspectsView: View {
         NavigationView{
             List {
                 ForEach(filteredPeople) { prospect in
-                    VStack(alignment: .leading){
-                        Text(prospect.name)
-                            .font(.headline)
-                        Text(prospect.emailAddress)
-                            .foregroundColor(.secondary)
+                    HStack {
+                        if prospect.isContacted{
+                            Image(systemName: "person.crop.circle.fill.badge.checkmark")
+                        }
+                        VStack(alignment: .leading){
+                            Text(prospect.name)
+                                .font(.headline)
+                            Text(prospect.emailAddress)
+                                .foregroundColor(.secondary)
+                        }
                     }
                     .swipeActions {
                         if prospect.isContacted {
@@ -50,6 +56,10 @@ struct ProspectsView: View {
                                 Label("Add notification", systemImage: "bell")
                             }
                         }
+                    } //MARK: Sorting options
+                    .confirmationDialog("Sorting options", isPresented: $isConfiramtionDiaglog) {
+                        Button("Sort by name") { prospects.sort(.byName) }
+                        Button("Sort by date") {  prospects.sort(.byDate) }
                     }
                 }
             }
@@ -61,12 +71,22 @@ struct ProspectsView: View {
                     Label("Scan", systemImage: "qrcode.viewfinder")
                 }
             }
+            .toolbar{
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        isConfiramtionDiaglog = true
+                    } label: {
+                        Label("Sort", systemImage: "list.bullet.rectangle")
+                    }
+                }
+            } //MARK: ScanView to scan qr codes
             .sheet(isPresented: $isShowingScanner) {
                 CodeScannerView(codeTypes: [.qr], simulatedData: "Paul Hudson\npaul@hackingwithswift.com", completion: handleScan)
             }
         }
         
     }
+    
     //MARK: Set notification at 9 am
     func setNotofication(for prospect: Prospect) {
         let center = UNUserNotificationCenter.current()
@@ -80,7 +100,7 @@ struct ProspectsView: View {
             var dateComponents = DateComponents()
             dateComponents.hour = 9
             
-//            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+            //            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
             
             let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
@@ -122,7 +142,7 @@ struct ProspectsView: View {
         }
     }
     
-    
+    //MARK: Filter to show right nav titile bar
     var title: String {
         switch filter {
         case .none:
@@ -134,6 +154,7 @@ struct ProspectsView: View {
         }
     }
     
+    //MARK: Dynamic filter to display right people in the list
     var filteredPeople: [Prospect] {
         switch filter {
         case .none:
@@ -144,6 +165,7 @@ struct ProspectsView: View {
             return prospects.people.filter { !$0.isContacted }
         }
     }
+   
 }
 
 struct ProspectsView_Previews: PreviewProvider {
