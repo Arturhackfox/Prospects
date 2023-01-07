@@ -18,6 +18,7 @@
 		327DA2C62966DB93002373A4 /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327DA2C52966DB93002373A4 /* MeView.swift */; };
 		327DA2CD2966DF80002373A4 /* Prospect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327DA2CC2966DF80002373A4 /* Prospect.swift */; };
 		327DA2D029681DC0002373A4 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 327DA2CF29681DC0002373A4 /* CodeScanner */; };
+		327DA2D22968571A002373A4 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327DA2D12968571A002373A4 /* ImageSaver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		327DA2C32966DB8D002373A4 /* ProspectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectsView.swift; sourceTree = "<group>"; };
 		327DA2C52966DB93002373A4 /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
 		327DA2CC2966DF80002373A4 /* Prospect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prospect.swift; sourceTree = "<group>"; };
+		327DA2D12968571A002373A4 /* ImageSaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				327DA2C72966DBD3002373A4 /* Views */,
 				327DA2CB2966DF72002373A4 /* Model */,
 				327DA2C82966DED9002373A4 /* ViewModel */,
+				327DA2D12968571A002373A4 /* ImageSaver.swift */,
 				327DA261296446F8002373A4 /* Assets.xcassets */,
 				327DA263296446F8002373A4 /* Preview Content */,
 			);
@@ -299,6 +302,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				327DA2C62966DB93002373A4 /* MeView.swift in Sources */,
+				327DA2D22968571A002373A4 /* ImageSaver.swift in Sources */,
 				327DA2CD2966DF80002373A4 /* Prospect.swift in Sources */,
 				327DA2C42966DB8D002373A4 /* ProspectsView.swift in Sources */,
 				327DA260296446F7002373A4 /* ContentView.swift in Sources */,
@@ -465,6 +469,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We want to save photo to your library.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -495,6 +500,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We want to save photo to your library.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

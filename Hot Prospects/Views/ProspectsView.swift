@@ -5,6 +5,7 @@
 //  Created by Arthur Sh on 05.01.2023.
 //
 
+import UserNotifications
 import CodeScanner
 import SwiftUI
 
@@ -42,6 +43,12 @@ struct ProspectsView: View {
                                 Label("Mark contacted", systemImage: "person.crop.circle.fill.badge.checkmark")
                             }
                             .tint(.green)
+                            
+                            Button {
+                                setNotofication(for: prospect)
+                            } label: {
+                                Label("Add notification", systemImage: "bell")
+                            }
                         }
                     }
                 }
@@ -60,6 +67,42 @@ struct ProspectsView: View {
         }
         
     }
+    //MARK: Set notification at 9 am
+    func setNotofication(for prospect: Prospect) {
+        let center = UNUserNotificationCenter.current()
+        
+        let addNotification = {
+            let content = UNMutableNotificationContent()
+            content.title = "Contact \(prospect.name)"
+            content.subtitle = prospect.emailAddress
+            content.sound = UNNotificationSound.default
+            
+            var dateComponents = DateComponents()
+            dateComponents.hour = 9
+            
+//            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+            
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+            
+            center.add(request)
+        }
+        
+        center.getNotificationSettings { setting in
+            if setting.authorizationStatus == .authorized {
+                addNotification()
+            } else {
+                center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                    if success {
+                        addNotification()
+                    } else {
+                        print("D'oh")
+                    }
+                }
+            }
+        }
+    }
+    
     // MARK: to handle results from scanning qr code
     func handleScan(result: Result<ScanResult, ScanError>) {
         isShowingScanner = false
